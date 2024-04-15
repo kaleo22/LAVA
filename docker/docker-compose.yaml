@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+    peak_cam:
+        build:
+            context: ../
+            dockerfile: docker/Dockerfile
+        command: ros2 launch peak_cam.launch.py
