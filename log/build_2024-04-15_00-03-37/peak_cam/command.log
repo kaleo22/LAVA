@@ -1,0 +1,2 @@
+Invoking command in '/home/leonard/peak_cam_docker/build/peak_cam': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/leonard/peak_cam_docker/build/peak_cam -- -j6 -l6
+Invoked command in '/home/leonard/peak_cam_docker/build/peak_cam' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/leonard/peak_cam_docker/build/peak_cam -- -j6 -l6
