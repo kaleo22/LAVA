@@ -31,7 +31,7 @@ FROM base AS overlay
 # Create an overlay Colcon workspace
 RUN mkdir -p /peak_cam/src
 WORKDIR /peak_cam
-C
+
 COPY ./peak_cam/ ./src/peak_cam_node.cpp/
 COPY ./peak_cam ./params/settings/cam1.yaml
 COPY ./peak_cam ./params/settings/cam2.yaml
