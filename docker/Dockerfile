@@ -12,6 +12,8 @@ RUN git clone https://github.com/kaleo22/peak_cam.git
 RUN apt-get install -y python3-rosdep
 RUN rosdep update \
     && rosdep install --from-paths peak_cam/src --ignore-src -y --rosdistro=humble
+
+CMD ["sleep", "3600"]
 #RUN apt install -y ids-peak_2.9.0.0-48_amd64
 #RUN colcon build
 #install dependencies
@@ -56,5 +58,5 @@ RUN rosdep update \
 # 
 # Set up the entrypoint
 COPY ./docker/entrypoint.sh /
-ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "bash" ]
+#ENTRYPOINT [ "/entrypoint.sh" ]
+#CMD [ "bash" ]
