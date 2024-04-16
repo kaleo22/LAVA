@@ -12,14 +12,15 @@ RUN git clone https://github.com/kaleo22/peak_cam.git
 RUN apt-get install -y python3-rosdep
 RUN rosdep update \
     && rosdep install --from-paths peak_cam/src --ignore-src -y --rosdistro=humble
-RUN colcon build
+#RUN apt install -y ids-peak_2.9.0.0-48_amd64
+#RUN colcon build
 #install dependencies
 #RUN apt-get update \
 #    && rm -rf /var/lib/apt/lists/*
 
 #build source
 #RUN mkdir -p /peak_cam/src
-WORKDIR /~/peak_cam
+#WORKDIR /~/peak_cam
 
 
 #    && rosdep update/*
