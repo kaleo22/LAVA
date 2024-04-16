@@ -5,4 +5,4 @@ services:
         build:
             context: ../
             dockerfile: docker/Dockerfile
-        command: ros2 launch peak_cam.launch.py
+        #command: ros2 launch peak_cam peak_cam.launch.py
