@@ -8,12 +8,33 @@ SHELL [ "bin/bash", "-c" ]
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-colcon-common-extensions
 #     rm -rf /var/lib/apt/lists/
-RUN git clone https://github.com/kaleo22/peak_cam.git
+RUN mkdir -p /ros_ws
+RUN git clone https://github.com/kaleo22/peak_cam.git \
+    && mv peak_cam/ ros_ws/peak_cam
 RUN apt-get install -y python3-rosdep
 RUN rosdep update \
-    && rosdep install --from-paths peak_cam/src --ignore-src -y --rosdistro=humble
+    && rosdep install --from-paths ros_ws/peak_cam/src --ignore-src -y --rosdistro=humble
 
-CMD ["sleep", "3600"]
+#WORKDIR /peak_cam/peak_driver
+RUN apt-get install -y libqt5multimedia5 \ 
+    && apt-get install -y libqt5multimedia5 \
+    && apt-get install -y qml-module-qtquick-window2 \
+    && apt-get install -y qml-module-qtquick2 \
+    && apt-get install -y qml-module-qtquick-dialogs \
+    && apt-get install -y qml-module-qtquick-controls \
+    && apt-get install -y qml-module-qtquick-layouts \
+    && apt-get install -y qml-module-qt-labs-settings \
+    && apt-get install -y qml-module-qt-labs-folderlistmodel \
+    && apt-get install -y udev \
+    && apt-get install -y ros-humble-camera-info-manager \
+    && dpkg -i ros_ws/peak_cam/peak_driver/ids-peak_2.9.0.0-48_amd64.deb
+RUN source /opt/ros/humble/setup.bash \ 
+    && cd /ros_ws/peak_cam \
+    && colcon build
+#RUN colcon build
+
+#CMD ["sleep", "3600"]
+
 #RUN apt install -y ids-peak_2.9.0.0-48_amd64
 #RUN colcon build
 #install dependencies
@@ -58,5 +79,5 @@ CMD ["sleep", "3600"]
 # 
 # Set up the entrypoint
 COPY ./docker/entrypoint.sh /
-#ENTRYPOINT [ "/entrypoint.sh" ]
-#CMD [ "bash" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "bash" ]
