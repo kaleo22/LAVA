@@ -28,9 +28,10 @@ RUN apt-get install -y libqt5multimedia5 \
     && apt-get install -y udev \
     && apt-get install -y ros-humble-camera-info-manager \
     && dpkg -i ros_ws/peak_cam/peak_driver/ids-peak_2.9.0.0-48_amd64.deb
+ENV GENICAM_GENTL64_PATH=/usr/lib/ids/cti
 RUN source /opt/ros/humble/setup.bash \ 
     && cd /ros_ws/peak_cam \
-    && colcon build
+    && colcon build 
 #RUN colcon build
 
 #CMD ["sleep", "3600"]
