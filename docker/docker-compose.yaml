@@ -6,6 +6,6 @@ services:
             context: ../
             dockerfile: docker/Dockerfile
             
-        command: ros2 launch peak_cam peak_cam.launch.py
+        command: ros2 launch peak_cam peak_cam.launch.py 
         devices:
-            - /dev/bus/usb/003/006:/dev/bus/usb/003/006
+            - /dev/bus/usb/003/007:/dev/bus/usb/003/007
