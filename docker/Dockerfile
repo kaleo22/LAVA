@@ -15,6 +15,7 @@ RUN apt-get install -y python3-rosdep
 RUN rosdep update \
     && rosdep install --from-paths ros_ws/peak_cam/src --ignore-src -y --rosdistro=humble
 
+COPY /opt/ros/noetic /opt/ros/noetic
 #WORKDIR /peak_cam/peak_driver
 RUN apt-get install -y libqt5multimedia5 \ 
     && apt-get install -y libqt5multimedia5 \
@@ -27,16 +28,26 @@ RUN apt-get install -y libqt5multimedia5 \
     && apt-get install -y qml-module-qt-labs-folderlistmodel \
     && apt-get install -y udev \
     && apt-get install -y ros-humble-camera-info-manager \
-    && apt-get install -y ros-humble-ros1-bridge \
-    && dpkg -i ros_ws/peak_cam/peak_driver/ids-peak_2.9.0.0-48_amd64.deb
+    && dpkg -i ros_ws/peak_cam/peak_driver/ids-peak_2.9.0.0-48_amd64.deb \
+    && sudo apt update \
+    && mkdir -p /ros1_bridge/src \
+    && cd /ros1_bridge/src \
+    && git clone https://github.com/ros2/ros1_bridge \
+    && cd /ros1_bridge \
+    && apt-get install -y ros-humble-rmw \
+    && source /opt/ros/humble/setup.bash \
+    && colcon build --symlink-install --packages-select ros1_bridge --cmake-force-configure
+
+
+    #&& colcon build 
 ENV GENICAM_GENTL64_PATH=/usr/lib/ids/cti
 RUN source /opt/ros/humble/setup.bash \ 
     && cd /ros_ws/peak_cam \
-    && colcon build --packages-skip ros1_bridge \
-    && colcon build --symlink-install --packages-select ros1_bridge --cmake-force-configure
+    && colcon build --packages-skip ros1_bridge
+    
 #RUN colcon build
 
-#CMD ["sleep", "3600"]
+CMD ["sleep", "3600"]
 
 #RUN apt install -y ids-peak_2.9.0.0-48_amd64
 #RUN colcon build
@@ -81,6 +92,6 @@ RUN source /opt/ros/humble/setup.bash \
 # #&& colcon build --symlink-install
 # 
 # Set up the entrypoint
-COPY ./docker/entrypoint.sh /
-ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "bash" ]
+# COPY ./docker/entrypoint.sh /
+# ENTRYPOINT [ "/entrypoint.sh" ]
+# CMD [ "bash" ]
