@@ -12,10 +12,10 @@ services:
             - /dev/bus/usb/002/003:/dev/bus/usb/002/003
             - /dev/bus/usb/002/004:/dev/bus/usb/002/004
             - /dev/bus/usb/002/005:/dev/bus/usb/002/005
-    # ros_bridge:
-    #     build: 
-    #         context: ../
-    #         dockerfile: docker/ros1_bridge_bas_jammy.Dockerfile
-    #     #network_mode: "host"
+    Calibration:
+        build: 
+            context: ../
+            dockerfile: docker/Cali.Dockerfile
+        #network_mode: "host"
 
-    #     command: ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
+        command: ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
