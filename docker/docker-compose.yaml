@@ -10,12 +10,15 @@ services:
         command: ros2 launch peak_cam peak_cam.launch.py
         devices:
             - /dev/bus/usb/002/003:/dev/bus/usb/002/003
-            - /dev/bus/usb/002/004:/dev/bus/usb/002/004
-            - /dev/bus/usb/002/005:/dev/bus/usb/002/005
-    Calibration:
+            - /dev/bus/usb/002/117:/dev/bus/usb/002/117
+            - /dev/bus/usb/002/118:/dev/bus/usb/002/118
+    calibration:
         build: 
             context: ../
-            dockerfile: docker/Cali.Dockerfile
+            dockerfile: docker/apriltag.Dockerfile
         #network_mode: "host"
 
-        command: ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
+        # command: ros2 run apriltag_ros apriltag_node --ros-args \
+        #             -r image_rect:=/peak_cam/image_raw \
+        #             -r camera_info:=/peak_cam/camera_info \
+        #             --params-file `ros2 pkg prefix apriltag_ros`/share/apriltag_ros/cfg/tags_36h11.yaml
