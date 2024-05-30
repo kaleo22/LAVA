@@ -1,0 +1,27 @@
+X2 = tag36h11_2.simout.transform.translation.x;
+Y2 = tag36h11_2.simout.transform.translation.y;
+Z2 = tag36h11_2.simout.transform.translation.z;
+X2_2 = tag36h11_2_2.simout.transform.translation.x;
+Y2_2 = tag36h11_2_2.simout.transform.translation.y;
+Z2_2 = tag36h11_2_2.simout.transform.translation.z;
+X4 = tag36h11_4.simout.transform.translation.x;
+Y4 = tag36h11_4.simout.transform.translation.y;
+Z4 = tag36h11_4.simout.transform.translation.z;
+X4_2 = tag36h11_4_2.simout.transform.translation.x;
+Y4_2 = tag36h11_4_2.simout.transform.translation.y;
+Z4_2 = tag36h11_4_2.simout.transform.translation.z;
+X6 = tag36h11_6.simout.transform.translation.x;
+Y6 = tag36h11_6.simout.transform.translation.y;
+Z6 = tag36h11_6.simout.transform.translation.z;
+X6_2 = tag36h11_6_2.simout.transform.translation.x;
+Y6_2 = tag36h11_6_2.simout.transform.translation.y;
+Z6_2 = tag36h11_6_2.simout.transform.translation.z;
+
+scatter3(X2, Y2, Z2)
+hold on
+scatter3(X2_2,Y2_2,Z2_2)
+scatter3(X4, Y4, Z4)
+scatter3(X4_2, Y4_2, Z4_2)
+scatter3(X6, Y6, Z6)
+scatter3(X6_2, Y6_2, Z6_2)
+hold off
