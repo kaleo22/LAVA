@@ -10,7 +10,6 @@ services:
         command: ros2 launch peak_cam peak_cam.launch.py
         devices:
             - /dev/bus/usb/002/003:/dev/bus/usb/002/003
-            - /dev/bus/usb/002/117:/dev/bus/usb/002/117
             - /dev/bus/usb/002/118:/dev/bus/usb/002/118
     calibration:
         build: 
@@ -22,3 +21,11 @@ services:
         #             -r image_rect:=/peak_cam/image_raw \
         #             -r camera_info:=/peak_cam/camera_info \
         #             --params-file `ros2 pkg prefix apriltag_ros`/share/apriltag_ros/cfg/tags_36h11.yaml
+
+    # realsense:
+    #     build:
+    #         context: ../
+    #         dockerfile: docker/realsense.Dockerfile
+
+    #     devices:
+    #         - /dev/bus/usb/002/120:/dev/bus/usb/002/120
