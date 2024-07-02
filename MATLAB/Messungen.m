@@ -153,6 +153,32 @@ M6_Tag5_trans = [M6_y_845_x; M6_y_845_y; M6_y_845_z];
 
 Pose_M6_Tag5 = rmtrx_Zen * M6_Tag5_trans - rmtrx_Zen * M1_Zen_trans
 
+%reale Messwerte
+
+real_Pose_M1_Tag3 = [0; 0; 0];
+real_Pose_M1_Tag2 = [0; -0.84; 0];
+real_Pose_M1_Tag5 = [0; 1.05; 0];
+
+real_Pose_M2_Tag3 = [-0.5; 0; 0];
+real_Pose_M2_Tag2 = [-0.5; -0.8; 0];
+real_Pose_M2_Tag5 = [-0.5; 1.05; 0];
+
+real_Pose_M3_Tag3 = [-0.9; 0; 0];
+real_Pose_M3_Tag2 = [-0.9; -0.795; 0];
+real_Pose_M3_Tag5 = [-0.9; 1.075; 0];
+
+real_Pose_M4_Tag3 = [-1.5; 0; 0];
+real_Pose_M4_Tag2 = [-1.5; -0.8; 0];
+real_Pose_M4_Tag5 = [-1.5; 1.1; 0];
+
+real_Pose_M5_Tag3 = [0.595; 0; 0];
+real_Pose_M5_Tag2 = [0.595; -0.935; 0];
+real_Pose_M5_Tag5 = [0.595; 1.27; 0];
+
+real_Pose_M6_Tag3 = [1.42; 0; 0];
+real_Pose_M6_Tag2 = [1.42; -0.9; 0];
+real_Pose_M6_Tag5 = [1.42; 0.845; 0];
+
 
 
 numPoses = 6;
@@ -191,7 +217,48 @@ for i = 1:numPoses
     end
 end
 
+for i = 1:numPoses
+    
+    for j = 1:length(numTags)
+        
+        arrayName = sprintf('real_Pose_M%d_Tag%d', i, numTags(j));
+       
+        currentArray = eval(arrayName); 
+        
+        
+        scatter3(currentArray(1), currentArray(2), currentArray(3), 'filled', 'MarkerFaceColor','green');
+    end
+end
+
 scatter3(Pose_M1_Zen(1, :), Pose_M1_Zen(2, :), Pose_M1_Zen(3, :), 'filled', 'MarkerFaceColor','b');
+
+d = Pose_M6_Tag2 - Pose_M4_Tag2;
+r = linspace(0,1, 10);
+x = Pose_M4_Tag2(1) + r * d(1);
+y = Pose_M4_Tag2(2) + r * d(2);
+z = Pose_M4_Tag2(3) + r * d(3);
+plot3(x, y, z, 'Color', 'magenta')
+
+d2 = Pose_M6_Tag2 - Pose_M6_Tag5;
+
+x2 = Pose_M6_Tag5(1) + r * d2(1);
+y2 = Pose_M6_Tag5(2) + r * d2(2);
+z2 = Pose_M6_Tag5(3) + r * d2(3);
+plot3(x2, y2, z2, 'Color', 'magenta')
+
+d3 = Pose_M4_Tag2 - Pose_M4_Tag5;
+
+x3 = Pose_M4_Tag5(1) + r * d3(1);
+y3 = Pose_M4_Tag5(2) + r * d3(2);
+z3 = Pose_M4_Tag5(3) + r * d3(3);
+plot3(x3, y3, z3, 'Color', 'magenta')
+
+d4 = Pose_M6_Tag5 - Pose_M4_Tag5;
+
+x4 = Pose_M4_Tag5(1) + r * d4(1);
+y4 = Pose_M4_Tag5(2) + r * d4(2);
+z4 = Pose_M4_Tag5(3) + r * d4(3);
+plot3(x4, y4, z4, 'Color', 'magenta')
 
 hold off;
 
