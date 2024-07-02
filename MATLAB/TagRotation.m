@@ -70,3 +70,15 @@ dr.drawEulerRotation(gca, eulerd_0)
 
 figure ('Name','Rotation Pose (1,1) Cam as Target', 'NumberTitle','off')
 dr.drawEulerRotation(gca, eulerd_1)
+
+figure('Name','Position der Tags im Raum', 'NumberTitle','off')
+scatter3(Pose_0_0(1), Pose_0_0(2), Pose_0_0(3), 'filled', 'DisplayName','Transformierte Koordinaten für (0,0)', 'MarkerFaceColor', 'blue')
+hold on
+scatter3(Pose_1_1(1), Pose_1_1(2), Pose_1_1(3), 'filled', 'DisplayName','Transformierte Koordinaten für (1,1)', 'MarkerFaceColor', 'red')
+scatter3(Pose_2_1(1), Pose_2_1(2), Pose_2_1(3), 'filled', 'DisplayName','Transformierte Koordinaten für (2,1)', 'MarkerFaceColor', 'green')
+hold off
+xlabel('x-Achse', 'FontSize', 12, 'FontWeight', 'bold');   
+ylabel('y-Achse', 'FontSize', 12, 'FontWeight', 'bold');   
+zlabel('z-Achse', 'FontSize', 12, 'FontWeight', 'bold');
+legend
+title('Position der Tags im Raum')
