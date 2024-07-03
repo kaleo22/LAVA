@@ -11,7 +11,7 @@ Tag_Zentrum_roty = mean(Messung1.tag3.transform.rotation.y.Data);
 Tag_Zentrum_rotz = mean(Messung1.tag3.transform.rotation.z.Data);
 Tag_Zentrum_rotw = mean(Messung1.tag3.transform.rotation.w.Data);
 
-M1_Zen_rot = quaternion(Tag_Zentrum_rotx, Tag_Zentrum_roty, Tag_Zentrum_rotz, Tag_Zentrum_rotw);
+M1_Zen_rot = quaternion(rad2deg(Tag_Zentrum_rotw), rad2deg(Tag_Zentrum_rotx), rad2deg(Tag_Zentrum_roty), rad2deg(Tag_Zentrum_rotz));
 
 rmtrx_Zen = rotmat(M1_Zen_rot, 'frame')
 
