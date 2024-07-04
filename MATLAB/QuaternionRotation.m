@@ -36,9 +36,9 @@ trans = struct();
 for i = 1:numMess
     for j = 1:length(tags)
         % Construct the variable names
-        xName = sprintf('Messung%d.tag%d.transform.translation.x.Data', i, tags(j));
-        yName = sprintf('Messung%d.tag%d.transform.translation.y.Data', i, tags(j));
-        zName = sprintf('Messung%d.tag%d.transform.translation.z.Data', i, tags(j));
+        xName = sprintf('Messungen.Messung%d.tag%d.transform.translation.x.Data', i, tags(j));
+        yName = sprintf('Messungen.Messung%d.tag%d.transform.translation.y.Data', i, tags(j));
+        zName = sprintf('Messungen.Messung%d.tag%d.transform.translation.z.Data', i, tags(j));
         
         % Evaluate the variable names to get the actual data
         xData = eval(xName);
@@ -56,16 +56,17 @@ for i = 1:numMess
     end
 end
 
+
 rot = struct();
 
 for i = 1:numMess
 
     for j = 1:length(tags)
 
-        xrot = sprintf('Messung%d.tag%d.transform.rotation.x.Data', i, tags(j));
-        yrot = sprintf('Messung%d.tag%d.transform.rotation.y.Data', i, tags(j));
-        zrot = sprintf('Messung%d.tag%d.transform.rotation.z.Data', i, tags(j));
-        wrot = sprintf('Messung%d.tag%d.transform.rotation.w.Data', i, tags(j));
+        xrot = sprintf('Messungen.Messung%d.tag%d.transform.rotation.x.Data', i, tags(j));
+        yrot = sprintf('Messungen.Messung%d.tag%d.transform.rotation.y.Data', i, tags(j));
+        zrot = sprintf('Messungen.Messung%d.tag%d.transform.rotation.z.Data', i, tags(j));
+        wrot = sprintf('Messungen.Messung%d.tag%d.transform.rotation.w.Data', i, tags(j));
 
         rotx = eval(xrot);
         roty = eval(yrot);
@@ -84,15 +85,18 @@ for i = 1:numMess
     end
 end
 
-Poses = struct;
+Poses = struct();
+alpha = struct();
+mu = struct();
 
- figure('Name','Transformed Poses with 0-Tag as Worldcoordinatesytem', 'NumberTitle', 'off')
+figure('Name','Transformed Poses with 0-Tag as Worldcoordinatesytem', 'NumberTitle', 'off')
 hold on;
 grid on;
 xlabel('x-Achse', 'FontSize', 12, 'FontWeight', 'bold');
 ylabel('y-Achse', 'FontSize', 12, 'FontWeight', 'bold');
 zlabel('z-Achse', 'FontSize', 12, 'FontWeight', 'bold');
 title('Scatterplot der Messdaten über das gesamte Kamerabild');
+
 
 for i = 1:numMess
     for j = 1:length(tags)
@@ -121,7 +125,22 @@ for i = 1:numMess
         arrayName = sprintf('realPoseM%dTag%d', i, tags(j));
 
         currentArray = eval(arrayName); 
+        
+        AlphaName = sprintf('alpha_M%dTag%d', i, tags(j));
+        
+        muName = sprintf('mu_M%dTag%d', i, tags(j));
 
+        transpPose = transpose(currentPose);
+
+        currentalphaX = currentArray(1, 1) / transpPose(1, 1);
+        currentalphaY = currentArray(2, 1) / transpPose(2, 1);
+
+        currentMu = currentArray - transpPose;
+
+        alpha.(AlphaName).x = currentalphaX;
+        alpha.(AlphaName).y = currentalphaY;
+
+        mu.(muName) = currentMu;
 
         h2 = scatter3(currentArray(1), currentArray(2), currentArray(3), 'filled', 'MarkerFaceColor','green');
         text(currentArray(1), currentArray(2), currentArray(3), arrayName, 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right');
@@ -133,7 +152,51 @@ legend([h1, h2], {'Transformed Pose', 'Real Pose'}, 'Location', 'best');
 hold off
 
 
+figure('Name','New Transformed Poses with 0-Tag as Worldcoordinatesytem and alpha', 'NumberTitle', 'off')
+hold on;
+grid on;
+xlabel('x-Achse', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('y-Achse', 'FontSize', 12, 'FontWeight', 'bold');
+zlabel('z-Achse', 'FontSize', 12, 'FontWeight', 'bold');
+title('New Transformed Poses with 0-Tag as Worldcoordinatesytem and alpha');
 
+newpose = struct();
+for i = 1:numMess
+    for j = 1:length(tags)
+
+       
+        
+        ArrayName = sprintf('realPoseM%dTag%d', i, tags(j));
+
+        CurrentArray = eval(ArrayName);
+
+        PosName = sprintf('Poses.PoseM%dtag%d', i, tags(j));
+        
+        CurrentPos = eval(PosName);
+
+        AlphaName = sprintf('alpha.alpha_M%dTag%d', i, tags(j));
+
+        Alpha = eval(AlphaName);
+
+        A = [Alpha.x, Alpha.y];
+
+        NewPoseName = sprintf('M%dtag%d', i, tags(j));
+
+        NewPose = transpose(CurrentPos) * A;
+
+        newpose.(NewPoseName) = NewPose;
+        
+        h3 = scatter3(NewPose(1), NewPose(2), NewPose(3), 'filled','MarkerFaceColor', 'red');
+        text(NewPose(1), NewPose(2), NewPose(3), NewPoseName, 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right');
+
+        h4 = scatter3(CurrentArray(1), CurrentArray(2), CurrentArray(3), 'filled', 'MarkerFaceColor','green');
+        text(CurrentArray(1), CurrentArray(2), CurrentArray(3), ArrayName, 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right');
+
+    end
+end
+
+legend([h3, h4], {'New Transformed Pose', 'Real Pose'}, 'Location', 'best');
+hold off
 
 
 
