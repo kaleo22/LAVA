@@ -137,10 +137,30 @@ for i = 1:numMess
 
         currentMu = currentArray - transpPose;
 
+        currentY_tilde = currentMu;
+
+        if (i == 1) && (j == 1)
+            lastY = currentY_tilde;
+        else
+            nextY = lastY + currentY_tilde;
+            lastY = nextY;
+        end
+
         alpha.(AlphaName).x = currentalphaX;
         alpha.(AlphaName).y = currentalphaY;
 
         mu.(muName) = currentMu;
+
+        if i > 1
+            nextmu = lastmu + currentMu;
+            lastmu = nextmu;
+        else
+            lastmu = currentMu;
+        end
+
+        if (i == 6) && (j == 3)
+            mean_mu = nextmu / 18;
+        end
 
         h2 = scatter3(currentArray(1), currentArray(2), currentArray(3), 'filled', 'MarkerFaceColor','green');
         text(currentArray(1), currentArray(2), currentArray(3), arrayName, 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right');
@@ -199,5 +219,24 @@ legend([h3, h4], {'New Transformed Pose', 'Real Pose'}, 'Location', 'best');
 hold off
 
 
+for i = 1:6
+    for j = 1:length(tags)
 
+        muName = sprintf('mu.mu_M%dTag%d', i, tags(j));
+
+        currentMu = eval(muName);
+
+        part = (currentMu - mean_mu).^2 * (1/18);
+
+        if (i == 1) && (j == 1)
+            lastpart = part;
+        else
+            nextpart = lastpart + part;
+            lastpart = nextpart;
+        end
+    end
+end
+
+final_dev = sqrt(lastpart)
+MAE = lastY / 18
 
