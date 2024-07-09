@@ -199,8 +199,7 @@ for i = 1:numMess
        if (i == 1) && (j == 1)
            NewPose = Poses.PoseM1tag0;
            NewPoseName = sprintf('M1tag0');
-           ArrayName =  sprintf('realPoseM1Tag0');
-           CurrentArray = eval(ArrayName);
+           CurrentArray
        else
         
             ArrayName = sprintf('realPoseM%dTag%d', i, tags(j));
