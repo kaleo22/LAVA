@@ -1,6 +1,5 @@
 close all
 
-<<<<<<< HEAD
 % Deckencam
 % realPoseM1Tag3 = [0; 0; 0];
 % realPoseM1Tag2 = [0; -0.84; 0];
@@ -44,75 +43,26 @@ numMess = 3;
 tags = [0, 1, 2];
 
 
-=======
-
-realPoseM1Tag3 = [0; 0; 0];
-realPoseM1Tag2 = [0; -0.84; 0];
-realPoseM1Tag5 = [0; 1.05; 0];
-
-realPoseM2Tag3 = [-0.5; 0; 0];
-realPoseM2Tag2 = [-0.5; -0.8; 0];
-realPoseM2Tag5 = [-0.5; 1.05; 0];
-
-realPoseM3Tag3 = [-0.9; 0; 0];
-realPoseM3Tag2 = [-0.9; -0.795; 0];
-realPoseM3Tag5 = [-0.9; 1.075; 0];
-
-realPoseM4Tag3 = [-1.5; 0; 0];
-realPoseM4Tag2 = [-1.5; -0.8; 0];
-realPoseM4Tag5 = [-1.5; 1.1; 0];
-
-realPoseM5Tag3 = [0.595; 0; 0];
-realPoseM5Tag2 = [0.595; -0.935; 0];
-realPoseM5Tag5 = [0.595; 1.27; 0];
-
-realPoseM6Tag3 = [1.42; 0; 0];
-realPoseM6Tag2 = [1.42; -0.9; 0];
-realPoseM6Tag5 = [1.42; 0.845; 0];
-
-% mean(Messung1.tag2.transform.translation.x.Data);
-
-numMess = 6;
-tags = [2, 3, 5];
-
-% Initialize a structure to store the results
->>>>>>> refs/remotes/origin/main
 trans = struct();
 
 for i = 1:numMess
     for j = 1:length(tags)
-<<<<<<< HEAD
         
-=======
-        % Construct the variable names
->>>>>>> refs/remotes/origin/main
         xName = sprintf('Messungen.Messung%d.tag%d.transform.translation.x.Data', i, tags(j));
         yName = sprintf('Messungen.Messung%d.tag%d.transform.translation.y.Data', i, tags(j));
         zName = sprintf('Messungen.Messung%d.tag%d.transform.translation.z.Data', i, tags(j));
         
-<<<<<<< HEAD
         
-=======
-        % Evaluate the variable names to get the actual data
->>>>>>> refs/remotes/origin/main
         xData = eval(xName);
         yData = eval(yName);
         zData = eval(zName);
         
-<<<<<<< HEAD
         
-=======
-        % Calculate the means
->>>>>>> refs/remotes/origin/main
         meanX = mean(xData);
         meanY = mean(yData);
         meanZ = mean(zData);
         
-<<<<<<< HEAD
         
-=======
-        % Store the means in the structure
->>>>>>> refs/remotes/origin/main
         transName = sprintf('Messung%d_tag%d', i, tags(j));
         trans.(transName) = [meanX; meanY; meanZ];
     end
@@ -163,11 +113,7 @@ title('Scatterplot der Messdaten über das gesamte Kamerabild');
 for i = 1:numMess
     for j = 1:length(tags)
 
-<<<<<<< HEAD
         b = rotateframe(rot.M1_tag0, transpose(trans.Messung1_tag0));
-=======
-        b = rotateframe(rot.M1_tag3, transpose(trans.Messung1_tag3));
->>>>>>> refs/remotes/origin/main
 
         tag = sprintf('trans.Messung%d_tag%d', i, tags(j));
 
@@ -203,11 +149,7 @@ for i = 1:numMess
 
         currentMu = currentArray - transpPose;
 
-<<<<<<< HEAD
         currentY_tilde = abs(currentMu);
-=======
-        currentY_tilde = currentMu;
->>>>>>> refs/remotes/origin/main
 
         if (i == 1) && (j == 1)
             lastY = currentY_tilde;
@@ -228,11 +170,7 @@ for i = 1:numMess
             lastmu = currentMu;
         end
 
-<<<<<<< HEAD
         if (i == 3) && (j == 3)
-=======
-        if (i == 6) && (j == 3)
->>>>>>> refs/remotes/origin/main
             mean_mu = nextmu / 18;
         end
 
@@ -258,7 +196,6 @@ newpose = struct();
 for i = 1:numMess
     for j = 1:length(tags)
 
-<<<<<<< HEAD
        if (i == 1) && (j == 1)
            NewPose = Poses.PoseM1tag0;
            NewPoseName = sprintf('M1tag0');
@@ -290,30 +227,6 @@ for i = 1:numMess
         newpose.(NewPoseName) = NewPose;
        
         
-=======
-       
-        
-        ArrayName = sprintf('realPoseM%dTag%d', i, tags(j));
-
-        CurrentArray = eval(ArrayName);
-
-        PosName = sprintf('Poses.PoseM%dtag%d', i, tags(j));
-        
-        CurrentPos = eval(PosName);
-
-        AlphaName = sprintf('alpha.alpha_M%dTag%d', i, tags(j));
-
-        Alpha = eval(AlphaName);
-
-        A = [Alpha.x, Alpha.y];
-
-        NewPoseName = sprintf('M%dtag%d', i, tags(j));
-
-        NewPose = transpose(CurrentPos) * A;
-
-        newpose.(NewPoseName) = NewPose;
-        
->>>>>>> refs/remotes/origin/main
         h3 = scatter3(NewPose(1), NewPose(2), NewPose(3), 'filled','MarkerFaceColor', 'red');
         text(NewPose(1), NewPose(2), NewPose(3), NewPoseName, 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right');
 
@@ -327,22 +240,14 @@ legend([h3, h4], {'New Transformed Pose', 'Real Pose'}, 'Location', 'best');
 hold off
 
 
-<<<<<<< HEAD
 for i = 1:numMess
-=======
-for i = 1:6
->>>>>>> refs/remotes/origin/main
     for j = 1:length(tags)
 
         muName = sprintf('mu.mu_M%dTag%d', i, tags(j));
 
         currentMu = eval(muName);
 
-<<<<<<< HEAD
         part = (currentMu - mean_mu).^2 * (1/9);
-=======
-        part = (currentMu - mean_mu).^2 * (1/18);
->>>>>>> refs/remotes/origin/main
 
         if (i == 1) && (j == 1)
             lastpart = part;
@@ -353,7 +258,6 @@ for i = 1:6
     end
 end
 
-<<<<<<< HEAD
 final_dev = sqrt(lastpart);
 MAE = lastY / 9;
 
@@ -401,8 +305,3 @@ MAE = lastY / 9;
 
 
         
-=======
-final_dev = sqrt(lastpart)
-MAE = lastY / 18
-
->>>>>>> refs/remotes/origin/main
