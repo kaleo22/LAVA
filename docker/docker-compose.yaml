@@ -9,7 +9,8 @@ services:
             
         command: ros2 launch peak_cam peak_cam.launch.py
         devices:
-            - /dev/bus/usb/002/118:/dev/bus/usb/002/118
+            - /dev/bus/usb/002/009:/dev/bus/usb/002/009
+            - /dev/bus/usb/002/005:/dev/bus/usb/002/005
     calibration:
         build: 
             context: ../
