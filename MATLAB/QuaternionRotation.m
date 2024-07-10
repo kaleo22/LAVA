@@ -147,32 +147,8 @@ for i = 1:numMess
         currentalphaX = currentArray(1, 1) / transpPose(1, 1);
         currentalphaY = currentArray(2, 1) / transpPose(2, 1);
 
-        currentMu = currentArray - transpPose;
-
-        currentY_tilde = abs(currentMu);
-
-        if (i == 1) && (j == 1)
-            lastY = currentY_tilde;
-        else
-            nextY = lastY + currentY_tilde;
-            lastY = nextY;
-        end
-
         alpha.(AlphaName).x = currentalphaX;
         alpha.(AlphaName).y = currentalphaY;
-
-        mu.(muName) = currentMu;
-
-        if i > 1
-            nextmu = lastmu + currentMu;
-            lastmu = nextmu;
-        else
-            lastmu = currentMu;
-        end
-
-        if (i == 3) && (j == 3)
-            mean_mu = nextmu / 18;
-        end
 
         h2 = scatter3(currentArray(1), currentArray(2), currentArray(3), 'filled', 'MarkerFaceColor','green');
         text(currentArray(1), currentArray(2), currentArray(3), arrayName, 'VerticalAlignment', 'bottom', 'HorizontalAlignment', 'right');
@@ -240,68 +216,81 @@ legend([h3, h4], {'New Transformed Pose', 'Real Pose'}, 'Location', 'best');
 hold off
 
 
+xi = zeros(numMess, length(tags));
+yi = zeros(numMess, length(tags));
+
 for i = 1:numMess
     for j = 1:length(tags)
 
-        muName = sprintf('mu.mu_M%dTag%d', i, tags(j));
-
-        currentMu = eval(muName);
-
-        part = (currentMu - mean_mu).^2 * (1/9);
-
+        CurArrayName = sprintf('realPoseM%dTag%d', i, tags(j));
+        CurPoseName = sprintf('newpose.M%dtag%d', i, tags(j));
+        CurArray = eval(CurArrayName);
+        CurPose = eval(CurPoseName);
+        CurPose = transpose(CurPose);
+        diffx = CurArray(1,1) - CurPose(1,1);
+        diffy = CurArray(2,1) - CurPose(2,1);
+        
+        xi(i,j) = diffx;
+        yi(i,j) = diffy;
+        
         if (i == 1) && (j == 1)
-            lastpart = part;
+            lastsumx = diffx;
+            lastsumy = diffy;
         else
-            nextpart = lastpart + part;
-            lastpart = nextpart;
+            if (i == numMess) && (j == length(tags))
+                mux = lastsumx / (j*i);
+                muy = lastsumy / (j*i);
+            else
+                nextsumx = lastsumx + diffx;
+                lastsumx = nextsumx;
+                nextsumy = lastsumy + diffy;
+                lastsumy = nextsumy;
+
+            end
+        
         end
+
     end
+
 end
 
-final_dev = sqrt(lastpart);
-MAE = lastY / 9;
+for i = 1:numMess
+    for j = 1:length(tags)
 
-% figure('Name','Plot Standardverteilung', 'NumberTitle','off')
-% hold on
-% 
-% 
-% k = 1;
-% for i = 1:6
-%     for j = 1:length(tags)
-% 
-%         if (i == 1) && (j == 1)
-%             k = 1;
-%         else
-%             nextk = k + 1;
-%             k = nextk;
-%         end
-% 
-%         Posename = sprintf('Poses.PoseM%dtag%d', i, tags(j));
-%         Currentpose = eval(Posename);
-% 
-% 
-% 
-% 
-% 
-%         scatter(k, Currentpose(1, 1), 'MarkerFaceColor','red')
-%         title('Standardverteilung der X-Werte')
-% 
-% 
-% 
-% 
-%         scatter(k, Currentpose(1, 2), 'MarkerFaceColor','green')
-%         title('Standardverteilung der Y-Werte')
-% 
-% 
-% 
-%         scatter(k, Currentpose(1, 3), 'MarkerFaceColor','blue')
-%         title('Standardverteilung der Z-Werte')
-% 
-% 
-%     end
-% end
+        partx = ((xi(i,j) - mux)^2) / (numMess * length(tags));
+        party = ((yi(i,j) - muy)^2) / (numMess * length(tags));
 
-% hold off
+        if (i == 1) && (j == 1)
+            lastpartx = partx;
+            lastparty = party;
+        
+        else
+            nextpartx = partx + lastpartx;
+            lastpartx = nextpartx;
+            nextparty = party + lastparty;
+            lastparty = nextparty;
+        
+        end
+
+        if (i == numMess) && (j == length(tags))
+
+            standevx = sqrt(lastpartx);
+            standevy = sqrt(lastparty);
+            fprintf('Standardabweichung in X = %d \n', standevx)
+            fprintf('Standardabweichung in Y = %d \n', standevy)
+        
+        else
+            continue
+        
+        end
+
+    end
+
+end
+
+
+
+
 
 
         
