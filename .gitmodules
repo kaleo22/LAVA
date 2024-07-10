@@ -1,0 +1,3 @@
+[submodule "PoseTranspose"]
+	path = PoseTranspose
+	url = https://github.com/kaleo22/PoseTranspose.git
