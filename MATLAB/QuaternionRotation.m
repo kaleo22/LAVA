@@ -1,5 +1,6 @@
 clc
 close all
+load('9MessungenCam120mm.mat')
 
 % Deckencam
 % realPoseM1Tag3 = [0; 0; 0];
