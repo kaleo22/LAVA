@@ -10,6 +10,3 @@
 	path = apriltag_ros2
 	url = https://github.com/kaleo22/apriltag_ros2.git
 
-[submodule "PoseTranspose"]
-	path = PoseTranspose
-	url = https://github.com/kaleo22/PoseTranspose.git
