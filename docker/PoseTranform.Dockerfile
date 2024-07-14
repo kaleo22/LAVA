@@ -1,4 +1,4 @@
-FROM osrf/ros:humble-desktop-full
+FROM osrf/ros:foxy-desktop-full
 ARG ROS_PYTHON_VERSION=3
 
 SHELL [ "bin/bash", "-c" ]
@@ -7,10 +7,10 @@ SHELL [ "bin/bash", "-c" ]
 #install build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-colcon-common-extensions
-RUN mkdir -p /PoseTranspose/src \
+RUN mkdir -p /PoseTransform/src \
 	&& apt install -y git 
-RUN git clone https://github.com/kaleo22/PoseTranspose.git \
-	&& mv PoseTranspose/ PoseTranspose/src/PoseTranspose 
+RUN git clone https://github.com/kaleo22/PoseTransform.git 
+	#&& mv PoseTransform/ PoseTransform/src/PoseTransform 
 RUN apt-get install -y python3-rosdep 
 	#&& apt install -y apt-utils \
 	#&& apt install -y python-rosdep \
@@ -20,17 +20,17 @@ RUN apt-get install -y python3-rosdep
 	#&& apt install -y build-essential \
 	#&& apt install -y cmake
 #CMD ["sleep","3600"]
-RUN cd PoseTranspose/ \
+RUN cd PoseTransform/ \
 	&& rosdep update \
-        && rosdep install --from-paths src --ignore-src -r -y --rosdistro=humble 
+        && rosdep install --from-paths src --ignore-src -r -y --rosdistro=foxy 
 	#&& rosdep install --from-paths cali_ws/src/apriltag_ros -r -y --rosdistro=melodic \
 	#&& apt update && apt upgrade -y 
-RUN source /opt/ros/humble/setup.bash \
-	&& cd cali_ws/ \ 
+RUN source /opt/ros/foxy/setup.bash \
+	&& cd PoseTransform/ \ 
 	&& colcon build
     
 
 #Set up the entrypoint
-COPY ./docker/entrypoint_cali.sh /
-ENTRYPOINT [ "/entrypoint_cali.sh" ]
+COPY ./docker/entrypoint_PoseTransform.sh /
+ENTRYPOINT [ "/entrypoint_PoseTransform.sh" ]
 CMD [ "bash" ]

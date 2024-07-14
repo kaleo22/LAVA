@@ -18,15 +18,9 @@ services:
         
         command: ros2 launch apriltag_ros apriltag_launch.py
 
-        # command: ros2 run apriltag_ros apriltag_node --ros-args \
-        #             -r image_rect:=/peak_cam/image_raw \
-        #             -r camera_info:=/peak_cam/camera_info \
-        #             --params-file `ros2 pkg prefix apriltag_ros`/share/apriltag_ros/cfg/tags_36h11.yaml
+    PoseTransform:
+        build: 
+            context: ../
+            dockerfile: docker/PoseTransform.Dockerfile
 
-    # realsense:
-    #     build:
-    #         context: ../
-    #         dockerfile: docker/realsense.Dockerfile
-
-    #     devices:
-    #         - /dev/bus/usb/002/120:/dev/bus/usb/002/120
+        command: ros2 launch PoseTransform PoseTransform_launch.py
