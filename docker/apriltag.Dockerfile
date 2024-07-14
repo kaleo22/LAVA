@@ -32,7 +32,7 @@ RUN source /opt/ros/humble/setup.bash \
     
 
 #Set up the entrypoint
-# COPY ./docker/entrypoint_cali.sh /
-# ENTRYPOINT [ "/entrypoint_cali.sh" ]
-# CMD [ "bash" ]
-CMD ["sleep","3600"]# 
+COPY ./docker/entrypoint_cali.sh /
+ENTRYPOINT [ "/entrypoint_cali.sh" ]
+CMD [ "bash" ]
+#CMD ["sleep","3600"]# 

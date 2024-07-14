@@ -11,11 +11,12 @@ services:
         devices:
             - /dev/bus/usb/002/009:/dev/bus/usb/002/009
             - /dev/bus/usb/002/005:/dev/bus/usb/002/005
-    calibration:
+    apriltag:
         build: 
             context: ../
             dockerfile: docker/apriltag.Dockerfile
-        #network_mode: "host"
+        
+        command: ros2 launch apriltag_ros apriltag_launch.py
 
         # command: ros2 run apriltag_ros apriltag_node --ros-args \
         #             -r image_rect:=/peak_cam/image_raw \
