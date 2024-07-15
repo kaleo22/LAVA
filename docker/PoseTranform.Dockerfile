@@ -1,4 +1,4 @@
-FROM osrf/ros:foxy-desktop-full
+FROM osrf/ros:humble-desktop-full
 ARG ROS_PYTHON_VERSION=3
 
 SHELL [ "bin/bash", "-c" ]
