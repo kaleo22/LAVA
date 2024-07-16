@@ -21,10 +21,10 @@ RUN apt-get install -y python3-rosdep
 
 RUN cd PoseTransform/ \
 	&& rosdep update \
-        && rosdep install --from-paths src --ignore-src -r -y --rosdistro=foxy 
+        && rosdep install --from-paths  PoseTransform --ignore-PoseTransform -r -y --rosdistro=humble 
 	#&& rosdep install --from-paths cali_ws/src/apriltag_ros -r -y --rosdistro=melodic \
 	#&& apt update && apt upgrade -y 
-RUN source /opt/ros/foxy/setup.bash \
+RUN source /opt/ros/humble/setup.bash \
 	&& cd PoseTransform/ \ 
 	&& colcon build
     
