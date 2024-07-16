@@ -1,4 +1,4 @@
-FROM osrf/ros:foxy-desktop-full
+FROM osrf/ros:humble-desktop-full
 ARG ROS_PYTHON_VERSION=3
 
 SHELL [ "bin/bash", "-c" ]
@@ -7,8 +7,7 @@ SHELL [ "bin/bash", "-c" ]
 #install build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-colcon-common-extensions
-RUN mkdir -p /PoseTransform/src \
-	&& apt install -y git 
+RUN apt install -y git 
 RUN git clone https://github.com/kaleo22/PoseTransform.git 
 	#&& mv PoseTransform/ PoseTransform/src/PoseTransform 
 RUN apt-get install -y python3-rosdep 
@@ -19,7 +18,7 @@ RUN apt-get install -y python3-rosdep
 	#&& apt install -y python-rosinstall \
 	#&& apt install -y build-essential \
 	#&& apt install -y cmake
-#CMD ["sleep","3600"]
+
 RUN cd PoseTransform/ \
 	&& rosdep update \
         && rosdep install --from-paths src --ignore-src -r -y --rosdistro=foxy 
