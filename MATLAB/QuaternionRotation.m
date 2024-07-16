@@ -152,7 +152,7 @@ for i = 1:numMess
         current_R_length = sqrt(A_squared(1,1) + A_squared(2, 1)); %+ A_squared(3, 1));
         current_M_length = sqrt(P_squared(1, 1) + P_squared(2, 1)); %+ P_squared(3, 1));
         current_numerator = current_M_length * current_R_length;
-        current_denominator = square(current_M_length);
+        current_denominator = power(current_M_length, 2);
 
         if (i == 1) && (j == 1)
             
@@ -262,14 +262,24 @@ for i = 1:numMess
 
         CurArrayName = sprintf('realPoseM%dTag%d', i, tags(j));
         CurPoseName = sprintf('newpose.M%dtag%d', i, tags(j));
-        CurArray = eval(CurArrayName);
-        CurPose = eval(CurPoseName);
-        CurPose = transpose(CurPose);
-        diffx = CurArray(1,1) - CurPose(1,1);
-        diffy = CurArray(2,1) - CurPose(2,1);
-        
-        xi(i,j) = diffx;
-        yi(i,j) = diffy;
+
+        if (i == 1) && (j == 1)
+            
+            diffx = 0;
+            diffy = 0;
+
+        else
+
+            CurArray = eval(CurArrayName);
+            CurPose = eval(CurPoseName);
+            CurPose = transpose(CurPose);
+            diffx = CurArray(1,1) - CurPose(1,1);
+            diffy = CurArray(2,1) - CurPose(1,2);
+            
+            xi(i,j) = diffx;
+            yi(i,j) = diffy;
+
+        end
         
         if (i == 1) && (j == 1)
             lastsumx = diffx;
