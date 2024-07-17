@@ -8,6 +8,7 @@ SHELL [ "bin/bash", "-c" ]
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-colcon-common-extensions \
     python3-rosdep \
+    python3-pip\
     git
 
 # Clone repository
@@ -19,7 +20,9 @@ RUN rosdep update
 # Install dependencies
 RUN cd pose_transform \
     && rosdep update \
-    && rosdep install --from-paths . --ignore-src -r -y --rosdistro=foxy
+    && rosdep install --from-paths . --ignore-src -r -y --rosdistro=foxy \
+    && pip install scipy \
+    && pip install numpy
 
 
 # Build the workspace
