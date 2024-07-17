@@ -1,4 +1,4 @@
-FROM osrf/ros:humble-desktop-full
+FROM osrf/ros:foxy-desktop-desktop
 
 ARG ROS_PYTHON_VERSION=3
 
@@ -19,10 +19,10 @@ RUN rosdep update
 # Install dependencies
 RUN cd pose_transform \
     && rosdep update \
-    && rosdep install --from-paths . --ignore-src -r -y --rosdistro=humble
+    && rosdep install --from-paths . --ignore-src -r -y --rosdistro=foxy
 
 # Build the workspace
-RUN source /opt/ros/humble/setup.bash \
+RUN source /opt/ros/foxy/setup.bash \
     && cd pose_transform \
     && colcon build
 
