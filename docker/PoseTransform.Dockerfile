@@ -1,4 +1,4 @@
-FROM osrf/ros:foxy-desktop-desktop
+FROM osrf/ros:foxy-desktop
 
 ARG ROS_PYTHON_VERSION=3
 
