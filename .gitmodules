@@ -1,6 +1,6 @@
-[submodule "PoseTransform"]
-	path = PoseTransform
-	url = https://github.com/kaleo22/PoseTransform.git
+[submodule "pose_transform"]
+	path = pose_transform
+	url = https://github.com/kaleo22/pose_transform.git
 
 [submodule "peak_cam"]
     path = peak_cam
