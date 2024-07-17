@@ -18,9 +18,9 @@ services:
         
         command: ros2 launch apriltag_ros apriltag_launch.py
 
-    posetransform:
-        build: 
-            context: ../
-            dockerfile: docker/PoseTransform.Dockerfile
+    # posetransform:
+    #     build: 
+    #         context: ../
+    #         dockerfile: docker/PoseTransform.Dockerfile
 
-        command: ros2 launch pose_transform PoseTransform_launch.py
+    #     command: ros2 launch pose_transform PoseTransform_launch.py
