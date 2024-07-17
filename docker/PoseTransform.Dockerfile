@@ -24,9 +24,9 @@ RUN cd pose_transform \
 CMD ["sleep","3600"]
 
 # Build the workspace
-RUN source /opt/ros/foxy/setup.bash \
-    && cd pose_transform \
-    && colcon build
+# RUN source /opt/ros/foxy/setup.bash \
+#     && cd pose_transform \
+#     && colcon build
 
 # Set up the entrypoint
 #COPY ./docker/entrypoint_PoseTransform.sh /
