@@ -146,6 +146,42 @@ for i = 1:numMess
 
         transpPose = transpose(currentPose);
 
+        A_squared = power(currentArray, 2);
+        P_squared = power(transpPose, 2);
+
+        current_R_length = sqrt(A_squared(1,1) + A_squared(2, 1)); %+ A_squared(3, 1));
+        current_M_length = sqrt(P_squared(1, 1) + P_squared(2, 1)); %+ P_squared(3, 1));
+        current_numerator = current_M_length * current_R_length;
+        current_denominator = power(current_M_length, 2);
+
+        if (i == 1) && (j == 1)
+            
+            lastnumerator = current_numerator;
+            lastdenominator = current_denominator;
+        
+        elseif (i == numMess) && (j == length(tags))
+            
+            finalnumerator = lastnumerator + current_numerator;
+            finaldenominator = lastdenominator + current_denominator;
+
+            final = finalnumerator / finaldenominator;
+            
+            fprintf('Bestes alpha = %d \n', final)
+        
+        else
+            
+            nextnumerator = lastnumerator + current_numerator;
+            lastnumerator = nextnumerator;
+            nextdenominator = lastdenominator + current_denominator;
+            lastdenominator = nextdenominator;
+
+        end
+
+
+
+
+
+
         currentalphaX = currentArray(1, 1) / transpPose(1, 1);
         currentalphaY = currentArray(2, 1) / transpPose(2, 1);
 
@@ -189,16 +225,16 @@ for i = 1:numMess
             
             CurrentPos = eval(PosName);
     
-            AlphaName = sprintf('alpha.alpha_M%dTag%d', i, tags(j));
+            % AlphaName = sprintf('alpha.alpha_M%dTag%d', i, tags(j));
+            % 
+            % Alpha = eval(AlphaName);
     
-            Alpha = eval(AlphaName);
-    
-            A = [Alpha.x, Alpha.y];
+            A = final;  %[Alpha.x, Alpha.y];
     
             NewPoseName = sprintf('M%dtag%d', i, tags(j));
     
-            NewPose(1,1) = CurrentPos(1,1) * A(1,1);
-            NewPose(2,1) = CurrentPos(1,2) * A(1,2);
+            NewPose(1,1) = CurrentPos(1,1) * A;
+            NewPose(2,1) = CurrentPos(1,2) * A;
             NewPose(3,1) = CurrentPos(1,3);
        end
     
@@ -226,14 +262,24 @@ for i = 1:numMess
 
         CurArrayName = sprintf('realPoseM%dTag%d', i, tags(j));
         CurPoseName = sprintf('newpose.M%dtag%d', i, tags(j));
-        CurArray = eval(CurArrayName);
-        CurPose = eval(CurPoseName);
-        CurPose = transpose(CurPose);
-        diffx = CurArray(1,1) - CurPose(1,1);
-        diffy = CurArray(2,1) - CurPose(2,1);
-        
-        xi(i,j) = diffx;
-        yi(i,j) = diffy;
+
+        if (i == 1) && (j == 1)
+            
+            diffx = 0;
+            diffy = 0;
+
+        else
+
+            CurArray = eval(CurArrayName);
+            CurPose = eval(CurPoseName);
+            CurPose = transpose(CurPose);
+            diffx = CurArray(1,1) - CurPose(1,1);
+            diffy = CurArray(2,1) - CurPose(1,2);
+            
+            xi(i,j) = diffx;
+            yi(i,j) = diffy;
+
+        end
         
         if (i == 1) && (j == 1)
             lastsumx = diffx;
