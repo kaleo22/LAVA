@@ -1,35 +1,33 @@
 FROM osrf/ros:humble-desktop-full
+
 ARG ROS_PYTHON_VERSION=3
 
 SHELL [ "bin/bash", "-c" ]
 
-
-#install build tools
+# Install build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3-colcon-common-extensions
-RUN apt install -y git 
-RUN git clone https://github.com/kaleo22/PoseTransform.git 
-	#&& mv PoseTransform/ PoseTransform/src/PoseTransform 
-RUN apt-get install -y python3-rosdep 
-	#&& apt install -y apt-utils \
-	#&& apt install -y python-rosdep \
-	#&& apt install -y python-rosinstall-generator \
-	#&& apt install -y python-vcstool \
-	#&& apt install -y python-rosinstall \
-	#&& apt install -y build-essential \
-	#&& apt install -y cmake
+    python3-colcon-common-extensions \
+    python3-rosdep \
+    git
 
-RUN cd PoseTransform/ \
-	&& rosdep update \
-        && rosdep install --from-paths  PoseTransform --ignore-PoseTransform -r -y --rosdistro=humble 
-	#&& rosdep install --from-paths cali_ws/src/apriltag_ros -r -y --rosdistro=melodic \
-	#&& apt update && apt upgrade -y 
+# Clone repository
+RUN git clone https://github.com/kaleo22/pose_transform.git
+
+# Initialize rosdep
+RUN rosdep update
+
+# Install dependencies
+RUN cd pose_transform \
+    && rosdep update \
+    && rosdep install --from-paths . --ignore-src -r -y --rosdistro=humble
+
+# Build the workspace
 RUN source /opt/ros/humble/setup.bash \
-	&& cd PoseTransform/ \ 
-	&& colcon build
-    
+    && cd pose_transform \
+    && colcon build
 
-#Set up the entrypoint
+# Set up the entrypoint
 COPY ./docker/entrypoint_PoseTransform.sh /
 ENTRYPOINT [ "/entrypoint_PoseTransform.sh" ]
 CMD [ "bash" ]
+
