@@ -21,15 +21,14 @@ RUN cd pose_transform \
     && rosdep update \
     && rosdep install --from-paths . --ignore-src -r -y --rosdistro=foxy
 
-CMD ["sleep","3600"]
 
 # Build the workspace
-# RUN source /opt/ros/foxy/setup.bash \
-#     && cd pose_transform \
-#     && colcon build
+RUN source /opt/ros/foxy/setup.bash \
+    && cd pose_transform \
+    && colcon build
 
 # Set up the entrypoint
-#COPY ./docker/entrypoint_PoseTransform.sh /
-#ENTRYPOINT [ "/entrypoint_PoseTransform.sh" ]
-#CMD [ "bash" ]
+COPY ./docker/entrypoint_PoseTransform.sh /
+ENTRYPOINT [ "/entrypoint_PoseTransform.sh" ]
+CMD [ "bash" ]
 
