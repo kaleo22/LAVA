@@ -2,8 +2,8 @@
 
 set -e
 
-source /opt/ros/humble/setup.bash
-source /PoseTransform/install/setup.bash
+source /opt/ros/foxy/setup.bash
+source /pose_transform/install/setup.bash
 
 
 
