@@ -34,6 +34,12 @@ RUN apt-get install -y libqt5multimedia5 \
     && source /opt/ros/humble/setup.bash 
 
 
+RUN curl -s https://install.husarnet.com/install.sh | sudo bash \
+	&& RELEASE="v1.3.5" \
+	&& ARCH="amd64" \
+	&& sudo curl -L https://github.com/husarnet/husarnet-dds/releases/download/$RELEASE/husarnet-dds-linux-$ARCH -o /usr/local/bin/husarnet-dds \
+	&& sudo chmod +x /usr/local/bin/husarnet-dds
+
     #&& colcon build 
 ENV GENICAM_GENTL64_PATH=/usr/lib/ids/cti
 RUN  cd /ros_ws/peak_cam \ 

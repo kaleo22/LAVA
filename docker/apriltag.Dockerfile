@@ -25,7 +25,14 @@ RUN cd cali_ws/ \
 	&& rosdep update \
         && rosdep install --from-paths src --ignore-src -r -y --rosdistro=humble 
 	#&& rosdep install --from-paths cali_ws/src/apriltag_ros -r -y --rosdistro=melodic \
-	#&& apt update && apt upgrade -y 
+	#&& apt update && apt upgrade -y
+	
+RUN curl -s https://install.husarnet.com/install.sh | sudo bash \
+	&& RELEASE="v1.3.5" \
+	&& ARCH="amd64" \
+	&& sudo curl -L https://github.com/husarnet/husarnet-dds/releases/download/$RELEASE/husarnet-dds-linux-$ARCH -o /usr/local/bin/husarnet-dds \
+	&& sudo chmod +x /usr/local/bin/husarnet-dds
+
 RUN source /opt/ros/humble/setup.bash \
 	&& cd cali_ws/ \ 
 	&& colcon build
