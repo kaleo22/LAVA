@@ -5,7 +5,7 @@ services:
         build:
             context: ../
             dockerfile: docker/Dockerfile
-        #network_mode: "host"
+        network_mode: "host"
             
         command: ros2 launch peak_cam peak_cam.launch.py
         devices:
@@ -15,6 +15,7 @@ services:
         build: 
             context: ../
             dockerfile: docker/apriltag.Dockerfile
+        network_mode: "host"
         
         command: ros2 launch apriltag_ros apriltag_launch.py
 
@@ -22,5 +23,6 @@ services:
         build: 
             context: ../
             dockerfile: docker/PoseTransform.Dockerfile
+        network_mode: "host"
 
         command: ros2 launch pose_transform PoseTransform_launch.py
