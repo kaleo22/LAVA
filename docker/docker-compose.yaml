@@ -9,7 +9,7 @@ services:
             
         command: ros2 launch peak_cam peak_cam.launch.py
         devices:
-            - /dev/bus/usb/002/003:/dev/bus/usb/002/003
+            - /dev/bus/usb/002/006:/dev/bus/usb/002/006
             - /dev/bus/usb/002/005:/dev/bus/usb/002/005
     apriltag:
         build: 
