@@ -1,0 +1,34 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0" version="24.8.3">
+  <diagram name="Page-1" id="zU0PNHGNBiE9gmbVjhxK">
+    <mxGraphModel dx="2012" dy="795" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Csin29PV8eFVI046gh1U-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Csin29PV8eFVI046gh1U-2" target="Csin29PV8eFVI046gh1U-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Csin29PV8eFVI046gh1U-2" value="ROS2 Humble Container" style="swimlane;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Csin29PV8eFVI046gh1U-3" value="IDS Kamera ROS Node" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Csin29PV8eFVI046gh1U-2">
+          <mxGeometry x="25" y="60" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Csin29PV8eFVI046gh1U-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Csin29PV8eFVI046gh1U-4" target="Csin29PV8eFVI046gh1U-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Csin29PV8eFVI046gh1U-4" value="ROS2 Foxy lokal auf dem Rechner" style="swimlane;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="320" y="110" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Csin29PV8eFVI046gh1U-5" value="ROS-ROS2-Bridge" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Csin29PV8eFVI046gh1U-4">
+          <mxGeometry x="40" y="60" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Csin29PV8eFVI046gh1U-7" value="ROS Noetic lokal auf dem Rechner" style="swimlane;startSize=40;" vertex="1" parent="1">
+          <mxGeometry x="600" y="110" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Csin29PV8eFVI046gh1U-8" value="AprilTag-Detektion" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="Csin29PV8eFVI046gh1U-7">
+          <mxGeometry x="40" y="60" width="120" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
