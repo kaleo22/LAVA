@@ -146,12 +146,15 @@ for i = 1:numMess
 
         transpPose = transpose(currentPose);
 
-        A_squared = power(currentArray, 2);
+        %A_squared = power(currentArray, 2);
+        R_i = [currentArray(1, 1); currentArray(2, 1)];
+        M_i = [transpPose(1, 1); transpPose(2, 1)];
+        current_numerator = dot(R_i, M_i);
         P_squared = power(transpPose, 2);
 
-        current_R_length = sqrt(A_squared(1,1) + A_squared(2, 1)); %+ A_squared(3, 1));
+        %current_R_length = sqrt(A_squared(1,1) + A_squared(2, 1)); %+ A_squared(3, 1));
         current_M_length = sqrt(P_squared(1, 1) + P_squared(2, 1)); %+ P_squared(3, 1));
-        current_numerator = current_M_length * current_R_length;
+        %current_numerator = current_M_length * current_R_length;
         current_denominator = power(current_M_length, 2);
 
         if (i == 1) && (j == 1)

@@ -1,0 +1,2 @@
+xterm -hold -e "source /opt/ros/noetic/setup.bash; export ROS_MASTER_URI='http://cameras:11311'; export ROS_HOSTNAME='cameras'; export ROS_PORT=11311; roscore; bash" &
+xterm -hold -e "source /opt/ros/foxy/setup.bash; export ROS_MASTER_URI='http://cameras:11311'; export ROS_HOSTNAME='cameras'; export ROS_PORT=11311; ros2 run ros1_bridge dynamic_bridge --bridge-all-topics; bash" &
