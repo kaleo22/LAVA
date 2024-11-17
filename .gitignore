@@ -2,3 +2,6 @@
 **/install
 **/log
 **/.vscode
+/texbkp
+/jabref
+/pics
