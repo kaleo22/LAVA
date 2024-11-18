@@ -39,4 +39,26 @@ This project focuses on localising a 1:8 scale vehicle model using stationary ca
 
 This project demonstrates a scalable and adaptable approach to localisation, contributing to the broader field of robotics and automated vehicle development.
 
+## Setup
+
+- **peak_cam**:
+   In `params`, you need to define:  
+- Your `intrinsics` (intrinsic camera parameters).  
+- The distortion model you are using.  
+- The acquisition `settings` in the `camera_info.yaml` file.  
+
+- **apriltag_ros2**:
+   In `cfg`, you will need to create a `.yaml` file that specifies:  
+- The tag family.  
+- The IDs of the AprilTags you want to use.  
+- The sizes of the AprilTags.  
+- The number of cameras in use.  
+
+- **pose_transform**:
+   In `params`, you will find a `config.yaml` file where you can:  
+- Set your base and target frames.  
+   In `PoseTransformNode.py`, you need to:  
+- Set the coordinates of the 0-AprilTag relative to the corresponding camera.  
+- This allows you to transform the coordinates of other AprilTags from the relative camera coordinate system to the world coordinate system, which is represented by the 0-AprilTag.  
+
 
