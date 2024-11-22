@@ -13,3 +13,7 @@
 [submodule "ros1_bridge"]
 	path = ros1_bridge
 	url =https://github.com/kaleo22/ros1_bridge.git
+
+[submodule "CameraCalibration"]
+	path = CameraCalibration
+	url =git@github.com:kaleo22/CameraCalibration.git
